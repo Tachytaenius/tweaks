@@ -1,0 +1,23 @@
+ACTOR Flag1: Inventory // Detonate Rocket
+{
+	Inventory.MaxAmount 1
+	-INVBAR
+}
+
+ACTOR Flag2: Inventory // Detonate BFG Ball
+{
+	Inventory.MaxAmount 1
+	-INVBAR
+}
+
+ACTOR Flag3: Inventory // Zoom
+{
+	Inventory.MaxAmount 1
+	-INVBAR
+}
+
+ACTOR Flag4: Inventory // Between Super Shotgun Barrels.
+{
+	Inventory.MaxAmount 2
+	-INVBAR
+}

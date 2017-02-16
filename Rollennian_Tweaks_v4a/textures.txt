@@ -1,0 +1,22 @@
+sprite PUNGE0, 80, 41
+{
+	Offset -173, -127
+	Patch PUNGB0, 0, 0 {FlipX}
+}
+
+sprite PUNGF0, 107, 52
+{
+	Offset -161, -116
+	Patch PUNGC0, 0, 0 {FlipX}
+}
+
+sprite PUNGG0, 147, 76
+{
+	Offset -137, -92
+	Patch PUNGD0, 0, 0 {FlipX}
+}
+
+sprite PUNGH0, 186, 76{
+	Offset -67, -127
+	Patch PUNGH0, 0, 0
+}

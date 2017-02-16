@@ -1,0 +1,19 @@
+#library "Detonate"
+
+#include "zcommon.acs"
+
+script 544 (void) net{
+	if(GetActorProperty(0, APROP_HEALTH) > 0){
+		GiveInventory("Flag2", 1);
+		Delay(1);
+		TakeInventory("Flag2", 1);
+	}
+}
+
+script 545 (void) net{
+	if(GetActorProperty(0, APROP_HEALTH) > 0){
+		GiveInventory("Flag1", 1);
+		Delay(1);
+		TakeInventory("Flag1", 1);
+	}
+}

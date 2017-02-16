@@ -1,0 +1,9 @@
+#library "Grenade"
+
+#include "zcommon.acs"
+
+script 546 (void) net{
+	if(GetActorProperty(0, APROP_HEALTH) > 0)
+		SetActorState(0, "Grenade");
+		Delay(40);
+}

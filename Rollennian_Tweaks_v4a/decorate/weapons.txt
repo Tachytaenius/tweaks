@@ -1,0 +1,905 @@
+//Taken and modified from Realm 667. Thanks!
+ACTOR Railgun: DoomWeapon 20663
+{
+	Radius 20
+	Height 16
+	// Weapon.SelectionOrder 100
+	Weapon.AmmoType "Cell"
+	Inventory.PickupMessage "You got the railgun!"
+	Obituary "%o was railed by %k."
+	decal RailScorch
+	Weapon.SlotNumber 6
+	Tag "Railgun"
+	Weapon.AmmoUse 20
+	Weapon.AmmoGive 80
+	States
+	{
+		Zoom:
+			RLGG D 0 A_JumpIfInventory("Flag3", 1, "UnZoom")
+			RLGG D 0 A_GiveInventory("Flag3", 1)
+			RLGG D 5 A_ZoomFactor(5)
+			TNT1 A 15
+		Ready2:
+			TNT1 A 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		UnZoom:
+			TNT1 A 0 A_TakeInventory("Flag3", 1)
+			TNT1 A 5 A_ZoomFactor(1)
+			RLGG D 15
+		Ready:
+			RLGG D 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		Deselect:
+			RLGG "#" 0 A_TakeInventory("Flag3", 1)
+			RLGG "#" 0 A_ZoomFactor(1)
+		DeselectLoop:
+			RLGG "#" 1 A_Lower
+			Loop
+		Select:
+			RLGG D 1 A_Raise
+			Loop
+		Fire:
+			RLGG A 0 A_TakeInventory("Flag3", 1)
+			RLGG A 0 A_ZoomFactor(1)
+			RLGG E 4 A_RailAttack(150, 0, true, "gray", "blue", RGF_FULLBRIGHT, 0, "BulletPuff", 0, 0, 16384, 12, 0.5, 0.5, "none", 0, 180, 8)
+			RLGG F 5
+			RLGG G 4
+			RLGG H 5 A_FireCustomMissile("SpentPlasmaCell",-45+random(0,8),false,0,4)
+			RLGG A 0 A_CheckReload
+			RLGG I 4
+			RLGG J 5
+			RLGG K 4
+			RLGG L 5
+			RLGG A 2
+			RLGG B 2
+			RLGG C 2
+			RLGG D 2
+			RLGG D 0 A_ReFire
+			goto Ready
+		Spawn:
+			RAIL A -1
+			Stop
+	}
+}
+
+ACTOR MicroMissileLauncher: DoomWeapon 20666
+{
+	Radius 20
+	Height 16
+	// Weapon.SelectionOrder 75
+	Weapon.AmmoType "RocketAmmo"
+	Inventory.PickupMessage "You got the micro missile launcher!"
+	Weapon.SlotNumber 5
+	Tag "Micro Missile Launcher"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 6
+	States
+	{
+		Ready:
+			MICG A 1 A_WeaponReady
+			Loop
+		Deselect:
+			MICG A 1 A_Lower
+			Loop
+		Select:
+			MICG A 1 A_Raise
+			Loop
+		Fire:
+			MICG A 0 A_GunFlash
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), false, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), false, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), false, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), false, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), false, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_FireCustomMissile("MicroMissile", frandom(-3, 3), true, 0, 6, FPF_NOAUTOAIM, frandom(-3, 3))
+			MICG A 0 A_SetPitch(pitch-frandom(0.1, 4))
+			MICG B 18 A_PlaySound("weapons/rocklf", CHAN_AUTO)
+			MICG B 0 A_ReFire
+			Goto Ready
+		Flash:
+			MICF A 9 Bright A_Light1
+			Goto LightDone
+		Spawn:
+			MCRO A -1
+			Stop
+	}
+}
+
+ACTOR _BFG9000: BFG9000 replaces BFG9000
+{
+	Weapon.AmmoUse2 60
+	Weapon.AmmoType2 "Cell"
+	Weapon.AmmoUse 300
+	Weapon.SlotNumber 7
+	Weapon.AmmoGive 300
+	Tag "$TAG_BFG9000"
+	States{
+		Fire:
+			BFGG A 0 A_BFGsound
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 0 A_GunFlash
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_FireBFG
+			BFGG B 0 A_FireCustomMissile("SpentCellPack",-45+random(0,8),false,0,4)
+			BFGG B 0 A_FireCustomMissile("SpentCellPack",-45+random(0,8),false,0,4)
+			BFGG B 10 A_FireCustomMissile("SpentCellPack",-45+random(0,8),false,0,4)
+			BFGG B 0 A_ReFire
+			Goto Ready
+		AltFire:
+			BFGG A 0 A_BFGsound
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 0 A_GunFlash
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_SetPitch(pitch-frandom(-8, 8))
+			BFGG A 5 A_SetAngle(angle-frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), true, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG A 0 A_FireCustomMissile("PlasmaBall2", frandom(-16, 16), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			BFGG B 0 A_FireCustomMissile("SpentPlasmaCell",-45+random(0,8),false,0,4)
+			BFGG B 0 A_FireCustomMissile("SpentPlasmaCell",-45+random(0,8),false,0,4)
+			BFGG B 10 A_FireCustomMissile("SpentPlasmaCell",-45+random(0,8),false,0,4)
+			BFGG B 0 A_ReFire
+			Goto Ready
+	}
+}
+
+ACTOR _Chainsaw: Chainsaw replaces Chainsaw
+{
+
+	Weapon.SlotNumber 1
+	Tag "$TAG_CHAINSAW"
+	DamageType "Painsaw"
+	+Weapon.MELEEWEAPON
+	Weapon.SlotPriority 1
+	// Weapon.SelectionOrder 2200
+	States
+	{
+		Fire:
+			SAWG A 2 A_Saw("weapons/sawfull", "weapons/sawhit", 4, "ChainsawPainPuff", 0, 100)
+			SAWG B 2
+			SAWG B 0 A_ReFire
+			Goto Ready
+		Ready:
+			SAWG CDEF 2 A_WeaponReady
+			Loop
+	}
+}
+
+ACTOR _Fist: Fist replaces Fist
+{
+	+Weapon.WIMPY_WEAPON
+	+Weapon.MELEEWEAPON
+	Tag "$TAG_FIST"
+	// Weapon.SelectionOrder 3700
+	Weapon.SlotNumber 1
+	Weapon.SlotPriority 0
+	States{
+		Fire:
+			PUNG B 4
+			PUNG C 4
+			TNT1 A 0 A_JumpIfInventory("PowerStrength", 1, "BerserkedFire")
+//		NormalFire:
+			PUNG D 5 A_CustomPunch(2 * random(1, 10), TRUE, CPF_NOTURN, "BulletPuff", 64, 0, 0, "none", "*fist", "skeleton/swing") // Deliberately does not have CPF_PULLIN. Deliberately has CPF_NOTURN.
+			Goto ContinueFire
+		BerserkedFire:
+			PUNG D 5 A_CustomPunch((2 * random(1, 10)) * 10, TRUE, CPF_NOTURN, "BulletPuff", 64, 0, 0, "none", "*fist", "skeleton/swing")
+		ContinueFire:
+			PUNG C 4
+			PUNG B 0 A_ReFire("AltFire2")
+			Goto Ready
+
+		AltFire:
+			PUNG E 4
+			PUNG F 4
+			TNT1 A 0 A_JumpIfInventory("PowerStrength", 1, "BerserkedAltFire")
+//		NormalAltFire:
+			PUNG G 5 A_CustomPunch(1 * random(1, 10), TRUE, CPF_PULLIN, "BulletPuff", 96, 0, 0, "none", "skeleton/melee", "skeleton/swing") // Deliberately has CPF_PULLIN.
+			Goto ContinueAltFire
+		BerserkedAltFire:
+			PUNG G 5 A_CustomPunch((1 * random(1, 10)) * 10, TRUE, CPF_PULLIN, "BulletPuff", 96, 0, 0, "none", "skeleton/melee", "skeleton/swing")
+		ContinueAltFire:
+			PUNG F 4
+			PUNG E 0 A_ReFire("Fire2")
+			Goto Ready
+
+		Fire2:
+			PUNG B 3
+			PUNG C 3 A_CustomPunch(2, FALSE, CPF_NOTURN, "BulletPuff", 64, 0, 0, "none", "*fist", "skeleton/swing")
+			PUNG D 3
+			PUNG C 3
+			PUNG B 0 A_ReFire("AltFire2")
+			Goto Ready
+
+		AltFire2:
+			PUNG E 3
+			PUNG F 3 A_CustomPunch(1, FALSE, CPF_PULLIN, "BulletPuff", 96, 0, 0, "none", "skeleton/melee", "skeleton/swing")
+			PUNG G 3
+			PUNG F 3
+			PUNG E 0 A_ReFire("Fire2")
+			Goto Ready
+		Ready:
+			PUNG H 1 A_WeaponReady
+			Loop
+		Deselect:
+			PUNG H 1 A_Lower
+			Loop
+		Select:
+			PUNG H 1 A_Raise
+			Loop
+	}
+}
+
+ACTOR Minigun: Chaingun replaces Chaingun
+{
+	Weapon.SlotNumber 4
+	Tag "Minigun"
+	decal BulletChip
+	Inventory.PickupMessage "You got the minigun!"
+	Obituary "%o was mowed down by %k's minigun."
+	States{
+		Fire:
+			CHGG A 0 A_PlaySound("weapons/chngun", CHAN_WEAPON)
+			CHGG A 0 A_GunFlash
+			CHGG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+			CHGG A 2 A_FireBullets(11, 11, -1, 4, "BulletPuff")
+			CHGG B 2
+			CHGG B 0 A_ReFire
+			Goto Ready
+		Flash:
+			CHGF A 1 Bright A_Light1
+			CHGF B 1 Bright A_Light2
+			Goto LightDone
+		Ready:
+			CHGG A 1 A_WeaponReady
+			Loop
+	}
+}
+
+ACTOR PlasmaGun: PlasmaRifle replaces PlasmaRifle
+{
+	Weapon.AmmoUse2 1
+	Weapon.AmmoType2 "Cell"
+	Weapon.SlotNumber 6
+	Tag "Plasma Gun"
+	States{
+		Fire:
+			PLSG A 0 A_GunFlash
+			PLSG A 0 A_FireCustomMissile("PlasmaBall", frandom(-2, 2), true, 0, 0, 0, frandom(-2, 2))
+			PLSG A 0 A_SetPitch(pitch-frandom(0.1, 0.5))
+			PLSG A 3 A_PlaySound("weapons/plasmaf", CHAN_WEAPON, 0.5)
+			PLSG A 0 A_ReFire
+			Goto Ready
+		AltFire:
+			PLSG A 0 A_GunFlash
+			PLSG A 0 A_FireCustomMissile("SplitPlasma", frandom(-8, 8), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			PLSG A 0 A_FireCustomMissile("SplitPlasma", frandom(-8, 8), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			PLSG A 0 A_FireCustomMissile("SplitPlasma", frandom(-8, 8), false, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			PLSG A 0 A_FireCustomMissile("SplitPlasma", frandom(-8, 8), true, 0, 0, FPF_NOAUTOAIM, frandom(-8, 8))
+			PLSG A 0 A_SetPitch(pitch-frandom(0.1, 0.5))
+			PLSG A 3 A_PlaySound("weapons/plasmaf", CHAN_WEAPON, 0.5)
+			PLSG A 0 A_ReFire
+			Goto Ready
+		Flash:
+			PLSF A 2 Bright A_Light1
+			PLSF B 2 Bright A_Light2
+			Goto LightDone
+	}
+}
+
+ACTOR Revolver: DoomWeapon 20672
+{
+	// Weapon.SelectionOrder 50
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 12
+	Weapon.AmmoType "Clip"
+	Obituary "%o lost %p face to by %k's revolver."
+	Inventory.Pickupmessage "You got a revolver!"
+	Tag "Revolver"
+	decal BulletChip
+	Weapon.SlotPriority 0
+	Weapon.SlotNumber 2
+	Weapon.KickBack 15
+	AttackSound "weapons/revllf"
+	States
+	{
+	Ready:
+		RVLG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		RVLG A 1 A_Lower
+		Loop
+	Select:
+		RVLG A 1 A_Raise
+		Loop
+	Fire:
+		RVLG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+		RVLG A 0 A_FireBullets(4, 4, -1, 15, "BulletPuff")
+		RVLG A 6 A_GunFlash
+		RVLG B 6
+		RVLG C 8
+		RVLG B 13
+		RVLG A 0 A_ReFire
+		Goto Ready
+	Flash:
+		RVLF A 6 Bright A_Light1
+		RVLF B 6 Bright A_Light2
+		Goto LightDone
+	Spawn:
+		RVLV A -1
+		Stop
+	}
+}
+
+ACTOR _Pistol: Pistol replaces Pistol
+{
+	+WEAPON.WIMPY_WEAPON
+	Weapon.SlotNumber 2
+	Tag "$TAG_PISTOL"
+	decal BulletChip
+	Weapon.AmmoType2 "Clip"
+	Weapon.AmmoUse2 1
+	States{
+		Fire:
+			PISG A 4
+			PISG B 0 A_FireBullets (2, 2, -1, 8, "BulletPuff")
+			PISG B 0 A_PlaySound("weapons/pistol", CHAN_WEAPON)
+			PISG B 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+			PISG B 6 A_GunFlash
+			PISG C 4
+			PISG B 0 A_ReFire
+			Goto Ready
+	}
+}
+
+ACTOR _RocketLauncher: RocketLauncher replaces RocketLauncher
+{
+	Weapon.SlotNumber 5
+	Tag "$TAG_ROCKETLAUNCHER"
+	States
+	{
+		Fire:
+			MISG A 0 A_CheckReload
+			MISG A 3 A_GunFlash
+			MISG B 4
+			MISG B 0 A_FireMissile
+			MISG B 10 A_SetPitch(pitch-frandom(0.1, 4))
+			MISG B 0 A_ReFire
+			Goto Ready
+	}
+}
+
+ACTOR Rifle: DoomWeapon 20661
+{
+	Obituary "%o was gunned down by %k's rifle."
+	attacksound "weapons/pistol"
+	decal BulletChip
+	weapon.ammouse 1
+	weapon.SlotNumber 2
+	weapon.ammogive 40
+	weapon.ammotype "Clip"
+	// Weapon.SelectionOrder 1800
+	Inventory.pickupmessage "You got the rifle!"
+	States
+	{
+		Zoom:
+			RFLG A 0 A_JumpIfInventory("Flag3", 1, "UnZoom")
+			RFLG A 0 A_GiveInventory("Flag3", 1)
+			RFLG A 5 A_ZoomFactor(5)
+			TNT1 A 15
+		Ready2:
+			TNT1 A 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		UnZoom:
+			TNT1 A 0 A_TakeInventory("Flag3", 1)
+			TNT1 A 5 A_ZoomFactor(1)
+			RFLG A 15
+		Ready:
+			RFLG A 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		Deselect:
+			RFLG A 0 A_TakeInventory("Flag3", 1)
+			RFLG A 0 A_ZoomFactor(1)
+		DeselectLoop:
+			RFLG A 1 A_Lower
+			Loop
+		Select:
+			RFLG A 1 A_Raise
+			loop
+		Fire:
+			TNT1 A 0 A_JumpIfInventory("Flag3", 1, "ZoomFire")
+			RFLG A 3
+			RFLG A 0 A_GunFlash
+			RFLG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+			RFLG A 0 A_SetPitch(pitch-frandom(0.1, 0.25))
+			RFLG B 7 A_FireBullets(0.25, 0.25, -1, 6, "BulletPuff")
+			RFLG B 0 A_ReFire
+			Goto Ready
+		ZoomFire:
+			TNT1 A 3
+			TNT1 A 0 A_SetPitch(pitch-frandom(0.1, 0.25))
+			TNT1 A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+			TNT1 A 7 A_FireBullets(0.25, 0.25, -1, 6, "BulletPuff")
+			RFLG B 0 A_ReFire("ZoomFire")
+			Goto Ready2
+		Flash:
+			RFLF A 7 bright A_Light1
+			RFLG A 0 bright A_Light2
+			goto LightDone
+		Spawn:
+			RIFL A -1
+			Stop
+	}
+}
+
+ACTOR MachineGun: DoomWeapon 20669
+{
+	Obituary "%o was slammed down by %k's machine gun."
+	attacksound "weapons/revllf"
+	decal BulletChip
+	Tag "Machine Gun"
+	weapon.ammouse 1
+	weapon.SlotNumber 4
+	weapon.ammogive 40
+	weapon.ammotype "Clip"
+	Inventory.pickupmessage "You got the machine gun!"
+	States
+	{
+		Zoom:
+			MCHG A 0 A_JumpIfInventory("Flag3", 1, "UnZoom")
+			MCHG A 0 A_GiveInventory("Flag3", 1)
+			MCHG A 5 A_ZoomFactor(5)
+			TNT1 A 15
+		Ready2:
+			TNT1 A 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		UnZoom:
+			TNT1 A 0 A_TakeInventory("Flag3", 1)
+			TNT1 A 5 A_ZoomFactor(1)
+			MCHG A 15
+		Ready:
+			MCHG A 1 A_WeaponReady(WRF_ALLOWZOOM)
+			Loop
+		Deselect:
+			MCHG A 0 A_TakeInventory("Flag3", 1)
+			MCHG A 0 A_ZoomFactor(1)
+		DeselectLoop:
+			MCHG A 1 A_Lower
+			Loop
+		Select:
+			MCHG A 1 A_Raise
+			loop
+		Fire:
+			TNT1 A 0 A_JumpIfInventory("Flag3", 1, "ZoomFire")
+			MCHG A 0 A_GunFlash
+			MCHG A 0 A_FireCustomMissile("BulletCasing",45-random(0,8),false,0,4)
+			MCHG B 0 A_FireBullets(1, 1, -1, 4, "BulletPuff")
+			MCHG A 0 A_SetPitch(pitch-frandom(1, 3))
+			MCHG B 3 A_SetAngle(angle-frandom(-2, 2))
+			MCHG A 3
+			MCHG B 0 A_ReFire
+			Goto Ready
+		ZoomFire:
+			TNT1 A 0 A_FireBullets(1, 1, -1, 4, "BulletPuff")
+			TNT1 A 0 A_FireCustomMissile("BulletCasing",45-random(0,8),false,0,4)
+			TNT1 A 0 A_SetPitch(pitch-frandom(1, 3))
+			TNT1 A 3 A_SetAngle(angle-frandom(-2, 2))
+			TNT1 A 3
+			TNT1 B 0 A_ReFire("ZoomFire")
+			Goto Ready2
+		Flash:
+			MCHF A 1 bright A_Light1
+			MCHF B 1 bright A_Light2
+			Goto LightDone
+		Spawn:
+			MCGN A -1
+			Stop
+	}
+}
+
+ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
+{
+	// Weapon.SelectionOrder 400
+	Weapon.SlotNumber 3
+	Weapon.SlotPriority 2
+	Weapon.AmmoUse 0
+	decal BulletChip
+	Tag "$TAG_SUPERSHOTGUN"
+	+Weapon.NOALERT
+	States{
+		Ready_Full_OK:
+			SHT2 P 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Goto Ready_Full
+		Ready_HalfFull_OK:
+			SHT2 Q 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Goto Ready_HalfFull
+		Ready_Full:
+			SHT2 P 0 A_JumpIfInventory("Shell", 2, "Ready_Full_OK")
+			SHT2 P 0 A_TakeInventory("Flag4", 1)
+		Ready_HalfFull:
+			SHT2 Q 0 A_JumpIfInventory("Shell", 1, "Ready_HalfFull_OK")
+			SHT2 P 0 A_TakeInventory("Flag4", 1)
+		Ready:
+			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "Ready_Full")
+			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "Ready_HalfFull")
+			SHT2 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "FireRightBarrel")
+			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "FireLeftBarrel")
+			// We have no Flag4s. That means our barrels are empty! Let's reload them!!
+			Goto ReloadBothBarrels
+		Fire:
+			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "FireBothBarrels")
+			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "FireLeftBarrel")
+			// We have no Flag4s. That means our barrels are empty! Let's reload them!!
+			Goto ReloadBothBarrels
+		FireBothBarrels:
+			TNT1 A 0 A_TakeInventory("Shell", 2, TIF_NOTAKEINFINITE)
+			TNT1 A 0 A_TakeInventory("Flag4", 2)
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_FireBullets (24, 12, 32, 3, "BulletPuff")
+			TNT1 A 0 A_PlaySound ("weapons/sshotf", CHAN_WEAPON)
+			TNT1 A 0 A_SetPitch(pitch-(frandom(0.1, 3) + frandom(0.1, 3)))
+			SHT2 A 16 A_GunFlash
+			Goto ReloadBothBarrels
+		FireRightBarrel:
+			TNT1 A 0 A_TakeInventory("Flag4", 1)
+			TNT1 A 0 A_TakeInventory("Shell", 1, TIF_NOTAKEINFINITE)
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_FireBullets (12, 12, 16, 3, "BulletPuff")
+			TNT1 A 0 A_PlaySound ("weapons/sshotf", CHAN_WEAPON, 0.5)
+			TNT1 A 0 A_SetPitch(pitch-frandom(0.1, 3))
+			SHT2 Q 8 A_GunFlash("FirstBarrelFlash")
+			TNT1 A 0 A_ReFire
+			Goto Ready
+		FireLeftBarrel:
+			TNT1 A 0 A_TakeInventory("Flag4", 1)
+			TNT1 A 0 A_TakeInventory("Shell", 1, TIF_NOTAKEINFINITE)
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_FireBullets (9, 9, 16, 3, "BulletPuff")
+			TNT1 A 0 A_PlaySound ("weapons/sshotf", CHAN_WEAPON, 0.5)
+			TNT1 A 0 A_SetPitch(pitch-frandom(0.1, 3))
+			TNT1 A 0
+			SHT2 A 8 A_GunFlash("SecondBarrelFlash")
+			Goto ReloadBothBarrels
+		Reload:
+			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "Ready")
+			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "ReloadRightBarrel")
+			// We have no Flag4s. That means our barrels are empty! Let's reload them!!
+		ReloadBothBarrels:
+			TNT1 A 0 A_JumpIfInventory("Shell", 2, "ReloadBothBarrels_Continue")
+			SHT2 A 10 A_OpenShotgun2 // For the clicking sound.
+			Goto Ready
+		ReloadBothBarrels_Continue:
+			SHT2 B 6 A_GiveInventory("Flag4", 2)
+			SHT2 C 10
+			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
+			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
+			SHT2 D 10 A_OpenShotgun2
+			SHT2 E 10
+			TNT1 A 0
+			TNT1 A 0
+			SHT2 F 10 A_LoadShotgun2
+			SHT2 G 10
+			TNT1 A 0 A_PlaySound("weapons/sshotc", CHAN_WEAPON)
+			SHT2 H 6
+			TNT1 A 0 A_ReFire
+			Goto Ready
+		ReloadRightBarrel:
+			TNT1 A 0 A_JumpIfInventory("Shell", 1, "ReloadRightBarrel_Continue")
+			SHT2 A 10 A_OpenShotgun2 // For the clicking sound.
+			Goto Ready
+		ReloadRightBarrel_Continue:
+			SHT2 B 3			A_GiveInventory("Flag4", 1)
+			SHT2 C 5
+			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
+			SHT2 D 5 A_OpenShotgun2
+			SHT2 K 5 
+			TNT1 A 0
+			TNT1 A 0
+			SHT2 F 5 A_PlaySound("weapons/sshotl", CHAN_WEAPON, 0.5)
+			SHT2 G 5
+			TNT1 A 0 A_PlaySound("weapons/sshotc", CHAN_WEAPON)
+			SHT2 H 3
+			TNT1 A 0 A_ReFire
+			Goto Ready
+		Flash:
+			SHT2 I 4 Bright A_Light1
+			SHT2 J 4 Bright A_Light2
+			Goto LightDone
+		SecondBarrelFlash:
+			SHT2 L 2 Bright A_Light1
+			SHT2 M 2 Bright A_Light2
+			Goto LightDone
+		FirstBarrelFlash:
+			SHT2 N 2 Bright A_Light1
+			SHT2 O 2 Bright A_Light2
+			Goto LightDone
+	}
+}
+
+ACTOR _Shotgun: Shotgun replaces Shotgun
+{
+	// Weapon.SelectionOrder 1300
+	Weapon.SlotNumber 3
+	Weapon.SlotPriority 1
+	decal BulletChip
+	Tag "$TAG_SHOTGUN"
+	Weapon.AmmoUse2 1
+	Weapon.AmmoType2 "Shell"
+	States{
+		Fire:
+			SHTG A 0 A_FireBullets (8, 8, 16, 2, "BulletPuff")
+			SHTG A 0 A_SetPitch(pitch-frandom(0.1, 1))
+			SHTG A 8 A_GunFlash
+			SHTG B 5
+			SHTG C 5
+			SHTG D 4 A_FireCustomMissile("ShotgunShell",-45+random(0,8),false,0,4)
+			SHTG CB 5
+			SHTG A 1
+			SHTG A 0 A_ReFire
+			Goto Ready
+		AltFire:
+			SHTG A 0 A_FireBullets (2.5, 2.5, -1, (2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3))+(2 * random(1, 3)), "BulletPuff", FBF_NORANDOM | FBF_USEAMMO)
+			SHTG A 0 A_SetPitch(pitch-frandom(0.1, 1))
+			SHTG A 8 A_GunFlash
+			SHTG B 5
+			SHTG C 5
+			SHTG D 4 A_FireCustomMissile("ShotgunShell",-45+random(0,8),false,0,4)
+			SHTG CB 5
+			SHTG A 1
+			SHTG A 0 A_ReFire
+			Goto Ready
+		Flash:
+			SHTF A 1 Bright A_Light1
+			SHTF A 3 Bright A_Light1
+			TNT1 A 0 A_PlaySound("weapons/shotgf", CHAN_WEAPON)
+			SHTF B 4 Bright A_Light2
+			Goto LightDone
+	}
+}
+
+ACTOR AutoShotgun: DoomWeapon 20670
+{
+	Obituary "%o was blasted away by %k's auto-shotgun!"
+	decal BulletChip
+	weapon.ammouse 1
+	Tag "Auto-Shotgun"
+	weapon.SlotNumber 3
+	weapon.ammogive 8
+	weapon.ammotype "Shell"
+	weapon.slotpriority 0
+	// Weapon.SelectionOrder 1801
+	Inventory.pickupmessage "You found an auto-shotgun!!"
+	States
+	{
+		Ready:
+			ASGG A 1 A_WeaponReady
+			Loop
+		Deselect:
+			ASGG A 1 A_Lower
+			Loop
+		Select:
+			ASGG A 1 A_Raise
+			Loop
+		Flash:
+			ASGF A 3 Bright A_Light1
+			ASGF B 3 Bright A_Light2
+			Goto LightDone
+		Fire:
+			ASGG A 0 A_FireBullets (22, 22, 16, 1, "BulletPuff")
+			ASGG A 0 A_SetPitch(pitch-frandom(1, 3))
+			ASGG A 0 A_SetAngle(angle-frandom(-1.5, 1.5))
+			ASGG A 0 A_PlaySound ("weapons/sshotf", CHAN_WEAPON)
+			ASGG D 0 A_FireCustomMissile("ShotgunShell",-45+random(0,8),false,0,4)
+			ASGG B 8 A_GunFlash
+			ASGG A 8
+			ASGG A 0 A_ReFire
+			Goto Ready
+		AltFire:
+			PBAY A 3
+			PBAY B 4
+			PBAY C 5 A_CustomPunch(2, 0)
+			PBAY B 4
+			PBAY A 3
+			ASGG A 0 A_ReFire
+			Goto Ready
+		Spawn:
+			ATSH A -1
+			Stop
+	}
+}
+
+//Taken and modified from Realm 667. Thanks!
+Actor BFG10000 : DoomWeapon 20673
+{
+	Radius 20
+	Height 20
+	Weapon.Selectionorder 2800
+	Weapon.SlotNumber 7
+	Weapon.AmmoUse 100
+	Weapon.AmmoGive 200
+	Weapon.AmmoType "Cell"
+	Weapon.Kickback 100
+	Inventory.Pickupmessage "You got the BFG10000!  Hell, yes!"
+	Obituary "%o was blasted by %k's BFG10000"
+	+Weapon.NoAutoFire
+	Decal BFGLightning
+	States
+	{
+		Spawn:
+			BFG2 A -1
+			Stop
+		Ready:
+			BG2G A 0 A_PlaySound ("Weapons/BFG10KIdle")
+			BG2G A 1 A_WeaponReady
+			BG2G A 1 A_WeaponReady
+			BG2G A 1 A_WeaponReady
+			BG2G B 1 A_WeaponReady
+			BG2G B 1 A_WeaponReady
+			BG2G B 1 A_WeaponReady
+			BG2G C 1 A_WeaponReady
+			BG2G C 1 A_WeaponReady
+			BG2G C 1 A_WeaponReady
+			BG2G D 1 A_WeaponReady
+			BG2G D 1 A_WeaponReady
+			BG2G D 1 A_WeaponReady
+			Loop
+		Deselect:
+			BG2G E 1 A_Lower
+			Loop
+		Select:
+			BG2G E 1 A_Raise
+			Loop
+		Fire:
+			BG2G E 20 A_PlaySound("Weapons/BFG10KF")
+			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
+			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
+			BG2G H 1 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G H 1 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G I 1 A_SetAngle(angle-frandom(-8, 8))
+			BG2G I 1 A_SetAngle(angle-frandom(-8, 8))
+			BG2G J 1 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G J 1 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G K 5 A_GunFlash
+			BG2G L 10 A_FireBullets(0, 0, 1, 0, "BFG10000Shot")
+			BG2G M 10 A_SetAngle(angle-frandom(-8, 8))
+			BG2G N 5 A_SetPitch(pitch-frandom(-8, 8))
+			BG2G O 15 A_PlaySound("Weapons/BFG10KCool")
+			BG2G O 20 A_FireCustomMissile("SpentCellPack",45-random(0,8),false,0,4)
+			BG2G N 0 A_ReFire
+			Goto Ready
+		Flash:
+			TNT1 A 2 Bright A_Light1
+			TNT1 A 3 Bright
+			Goto LightDone
+	}
+}
+
+//Taken and modified from Realm 667. Thanks!
+ACTOR SuperMinigun: DoomWeapon 20675
+{
+	Weapon.SlotNumber 4
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "Clip"
+	Weapon.AmmoGive 40
+	Tag "Super Minigun"
+	decal BulletChip
+	Inventory.PickupMessage "You got a super minigun!"
+	Obituary "%o was shredded by %k's super minigun."
+	States{
+		Fire:
+			MNGG A 0 A_PlaySound("weapons/minigunfire", CHAN_WEAPON)
+			MNGG A 0 A_GunFlash
+			MNGG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+			MNGG A 1 A_FireBullets(20, 20, -1, 3, "BulletPuff")
+			MNGG B 1
+			MNGG B 0 A_ReFire
+			Goto Ready
+		Flash:
+			MNGF A 1 Bright A_Light1
+			MNGF B 1 Bright A_Light2
+			Goto LightDone
+		Ready:
+			MNGG A 1 A_WeaponReady
+			Loop
+		Select:
+			MNGG A 1 A_Raise
+			Loop
+		Deselect:
+			MNGG A 1 A_Lower
+			Loop
+		Spawn:
+			MNGN A -1
+			Stop
+	}
+}
+
+//Taken and modified from Realm 667. Thanks!
+Actor LightningGun : DoomWeapon 20674
+{
+	tag "Lightning Gun"
+	Radius 20
+	Height 16
+	Weapon.SelectionOrder 2500
+	Weapon.AmmoUse 2
+	Weapon.SlotNumber 6
+	Weapon.AmmoGive 40
+	Weapon.AmmoType "Cell"
+	Weapon.Kickback 200
+	Inventory.PickupMessage "You got the lightning gun! Go 'n' fry something!"
+	States
+	{
+		Spawn:
+			LGUN A -1
+			Stop
+		Ready:
+			LIGG A 1 A_WeaponReady
+			Loop
+		Deselect:
+			LIGG A 1 A_Lower
+			Loop
+		Select: 
+			LIGG A 1 A_Raise
+			Loop
+		Fire:
+			LIGG B 0 A_PlaySound("world/spark", CHAN_WEAPON)
+			LIGG B 0 A_RailAttack(20, 0, true, "none", "55 b0 ff", RGF_FULLBRIGHT | RGF_SILENT | RGF_NOPIERCING, 1024, "BulletPuff", 2, 2, 4096, 20, 1, 1, "none", 0, 90, 1)
+			LIGG B 4
+			LIGG B 0 A_ReFire
+			Goto Ready
+		Flash: 
+			LIGF A 1 Bright A_Light1
+			LIGF B 1 Bright
+			LIGF C 1 Bright A_Light2
+			LIGF D 1 Bright A_Light2
+			Goto LightDone
+	}
+}

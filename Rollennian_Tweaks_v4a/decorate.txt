@@ -1,0 +1,6 @@
+#include decorate/flags.txt
+#include decorate/casings.txt
+#include decorate/projectiles.txt
+#include decorate/weapons.txt
+#include decorate/monsters.txt
+#include decorate/misc.txt

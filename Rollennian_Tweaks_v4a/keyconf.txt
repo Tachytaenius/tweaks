@@ -1,0 +1,12 @@
+clearplayerclasses
+addplayerclass DoomPlayerPain nomenu
+
+addkeysection "Rollennian Tweaks" RollennianTweaks
+
+addmenukey "Detonate Rocket" det_bfgb
+addmenukey "Detonate BFG Ball" det_rock
+addmenukey "Throw Grenade" thr_gren
+
+alias det_bfgb "puke 545"
+alias det_rock "puke 544"
+alias thr_gren "puke 546"

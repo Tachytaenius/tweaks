@@ -1,0 +1,11 @@
+#library "Painsaw"
+
+#include "zcommon.acs"
+
+script 542 (void){
+	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+}
+
+script 543 (void){
+	SetPlayerProperty(1, 0, PROP_TOTALLYFROZEN);
+}

@@ -1,0 +1,9 @@
+weapons/grbnce			DSBOUNCE
+weapons/revllf			DSRVSHOT
+Weapons/BFG10KF			DSBFG10K
+Weapons/BFG10KX			DSBAREXP
+Weapons/BFG10KCool		DS10KCDN
+Weapons/BFG10KIdle		DS10KIDL
+weapons/minigunfire		DSSMINGN
+
+$Limit	Weapons/BFG10KX	0
