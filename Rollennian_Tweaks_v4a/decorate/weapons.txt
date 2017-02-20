@@ -616,7 +616,7 @@ ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 			SHT2 A 10 A_OpenShotgun2 // For the clicking sound.
 			Goto Ready
 		ReloadBothBarrels_Continue:
-			SHT2 B 6 A_GiveInventory("Flag4", 2)
+			SHT2 B 8 A_GiveInventory("Flag4", 2)
 			SHT2 C 10
 			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
 			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
@@ -627,7 +627,7 @@ ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 			SHT2 F 10 A_LoadShotgun2
 			SHT2 G 8
 			TNT1 A 0 A_PlaySound("weapons/sshotc", CHAN_WEAPON)
-			SHT2 H 6
+			SHT2 H 8
 			TNT1 A 0 A_ReFire
 			Goto Ready
 		ReloadRightBarrel:
@@ -635,17 +635,17 @@ ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 			SHT2 A 10 A_OpenShotgun2 // For the clicking sound.
 			Goto Ready
 		ReloadRightBarrel_Continue:
-			SHT2 B 3			A_GiveInventory("Flag4", 1)
-			SHT2 C 5
+			SHT2 B 6 A_GiveInventory("Flag4", 1)
+			SHT2 C 6
 			TNT1 A 0 A_FireCustomMissile("ShotgunShell",45-random(0,8),false,0,4)
-			SHT2 D 5 A_OpenShotgun2
-			SHT2 K 4 
+			SHT2 D 6 A_OpenShotgun2
+			SHT2 K 6 
 			TNT1 A 0
 			TNT1 A 0
-			SHT2 F 5 A_PlaySound("weapons/sshotl", CHAN_WEAPON, 0.5)
-			SHT2 G 4
+			SHT2 F 6 A_PlaySound("weapons/sshotl", CHAN_WEAPON, 0.5)
+			SHT2 G 6
 			TNT1 A 0 A_PlaySound("weapons/sshotc", CHAN_WEAPON)
-			SHT2 H 3
+			SHT2 H 6
 			TNT1 A 0 A_ReFire
 			Goto Ready
 		Flash:
@@ -696,8 +696,7 @@ ACTOR CombatShotgun: Shotgun replaces Shotgun
 			SHTG A 0 A_ReFire
 			Goto Ready
 		Flash:
-			SHTF A 1 Bright A_Light1
-			SHTF A 3 Bright A_Light1
+			SHTF A 4 Bright A_Light1
 			TNT1 A 0 A_PlaySound("weapons/shotgf", CHAN_WEAPON)
 			SHTF B 4 Bright A_Light2
 			Goto LightDone
