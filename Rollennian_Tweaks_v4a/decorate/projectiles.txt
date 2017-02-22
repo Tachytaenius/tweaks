@@ -1,5 +1,6 @@
 ACTOR MicroMissile
 {
+	+GRENADETRAIL
 	Obituary "%o was swarmed by %k's micro missiles."
 	Radius 2
 	Height 2
@@ -21,13 +22,10 @@ ACTOR MicroMissile
 	}
 }
 
-ACTOR MicroMissileWeak: MicroMissile // Used by the Micro Missiles Guy to make sure it's not too over-powered.
-{
-	Damage 2
-}
-
 ACTOR _BFGBall: BFGBall replaces BFGBall
 {
+	+ROCKETTRAIL
+	+GRENADETRAIL
 	Damage (120*random(1, 4))
 	decal BFGLightning
 	States
