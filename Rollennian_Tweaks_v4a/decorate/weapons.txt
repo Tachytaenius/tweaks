@@ -573,12 +573,12 @@ ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "Ready_HalfFull")
 			SHT2 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
 			Loop
-		AltFire:
+		Fire:
 			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "FireRightBarrel")
 			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "FireLeftBarrel")
 			// We have no Flag4s. That means our barrels are empty! Let's reload them!!
 			Goto ReloadBothBarrels
-		Fire:
+		AltFire:
 			TNT1 A 0 A_JumpIfInventory("Flag4", 2, "FireBothBarrels")
 			TNT1 A 0 A_JumpIfInventory("Flag4", 1, "FireLeftBarrel")
 			// We have no Flag4s. That means our barrels are empty! Let's reload them!!
