@@ -10,6 +10,16 @@ ACTOR _Cacodemon: Cacodemon replaces Cacodemon
 	Health 500
 }
 
+ACTOR _HellKnight: HellKnight replaces HellKnight
+{
+	bloodcolor "darkgreen"
+}
+
+ACTOR _BaronOfHell: BaronOfHell replaces BaronOfHell
+{
+	bloodcolor "darkgreen"
+}
+
 ACTOR _PainElemental: PainElemental replaces PainElemental
 {
 	States{

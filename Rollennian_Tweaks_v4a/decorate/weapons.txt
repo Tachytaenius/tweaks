@@ -1,6 +1,7 @@
 //Taken and modified from Realm 667. Thanks!
 ACTOR Railgun: DoomWeapon 20663
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Radius 20
 	Height 16
 	Weapon.AmmoType "Cell"
@@ -63,6 +64,7 @@ ACTOR Railgun: DoomWeapon 20663
 
 ACTOR HeavyMachineGun: DoomWeapon 20666
 {
+	Inventory.PickupSound "misc/i_pkup"
 	attacksound "weapons/pistol"
 	Radius 20
 	Height 16
@@ -124,6 +126,7 @@ ACTOR HeavyMachineGun: DoomWeapon 20666
 
 ACTOR _BFG9000: BFG9000 replaces BFG9000
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.AmmoUse2 60
 	Weapon.AmmoType2 "Cell"
 	Weapon.AmmoUse 300
@@ -269,6 +272,7 @@ ACTOR _Fist: Fist replaces Fist
 
 ACTOR _Chainsaw: Chainsaw replaces Chainsaw
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 1
 	Tag "$TAG_CHAINSAW"
 	DamageType "Painsaw"
@@ -288,6 +292,7 @@ ACTOR _Chainsaw: Chainsaw replaces Chainsaw
 
 ACTOR Minigun: Chaingun replaces Chaingun
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 4
 	Tag "Minigun"
 	decal BulletChip
@@ -311,6 +316,7 @@ ACTOR Minigun: Chaingun replaces Chaingun
 
 ACTOR PlasmaGun: PlasmaRifle replaces PlasmaRifle
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.AmmoUse2 1
 	Weapon.AmmoType2 "Cell"
 	Weapon.SlotNumber 6
@@ -342,6 +348,7 @@ ACTOR PlasmaGun: PlasmaRifle replaces PlasmaRifle
 
 ACTOR Revolver: DoomWeapon 20672
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 12
 	Weapon.AmmoType "Clip"
@@ -384,6 +391,7 @@ ACTOR Revolver: DoomWeapon 20672
 
 ACTOR _Pistol: Pistol replaces Pistol
 {
+	Inventory.PickupSound "misc/i_pkup"
 	+WEAPON.WIMPY_WEAPON
 	Weapon.SlotNumber 2
 	Tag "$TAG_PISTOL"
@@ -405,6 +413,7 @@ ACTOR _Pistol: Pistol replaces Pistol
 
 ACTOR _RocketLauncher: RocketLauncher replaces RocketLauncher
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 5
 	Tag "$TAG_ROCKETLAUNCHER"
 	States
@@ -422,6 +431,7 @@ ACTOR _RocketLauncher: RocketLauncher replaces RocketLauncher
 
 ACTOR LightAssaultRifle: DoomWeapon 20661
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Obituary "%o was gunned down by %k's light assault rifle."
 	attacksound "weapons/pistol"
 	decal BulletChip
@@ -485,6 +495,7 @@ ACTOR LightAssaultRifle: DoomWeapon 20661
 
 ACTOR LightMachineGun: DoomWeapon 20669
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Obituary "%o was slammed down by %k's light machine gun."
 	attacksound "weapons/revllf"
 	decal BulletChip
@@ -550,6 +561,7 @@ ACTOR LightMachineGun: DoomWeapon 20669
 
 ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 3
 	Weapon.AmmoUse 0
 	decal BulletChip
@@ -636,7 +648,7 @@ ACTOR _SuperShotgun: SuperShotgun replaces SuperShotgun
 			TNT1 A 0 A_ReFire
 			Goto Ready
 		ReloadRightBarrel:
-			TNT1 A 0 A_JumpIfInventory("Shell", 1, "ReloadRightBarrel_Continue")
+			TNT1 A 0 A_JumpIfInventory("Shell", 2, "ReloadRightBarrel_Continue") // You need two shells because you've already got one "assigned" to the left barrel.
 			SHT2 A 10 A_OpenShotgun2 // For the clicking sound.
 			Goto Ready
 		ReloadRightBarrel_Continue:
@@ -675,6 +687,7 @@ ACTOR CombatShotgun: Shotgun replaces Shotgun
 	Tag "Combat Shotgun"
 	Weapon.AmmoUse2 1
 	Weapon.AmmoType2 "Shell"
+	Inventory.PickUpMessage "You got a combat shotgun!"
 	States{
 		Fire:
 			SHTG A 0 A_FireBullets (4, 4, 16, 2, "BulletPuff")
@@ -708,6 +721,7 @@ ACTOR CombatShotgun: Shotgun replaces Shotgun
 
 ACTOR HeavyAssaultRifle: DoomWeapon 20670
 {
+	Inventory.PickupSound "misc/i_pkup"
 	attacksound "weapons/pistol"
 	Obituary "%o was pierced by %k's heavy assault rifle." // Pierced applies to the bayonet, too. Maybe I should make the bayonet a sister weapon? Research needed.
 	decal BulletChip
@@ -716,7 +730,7 @@ ACTOR HeavyAssaultRifle: DoomWeapon 20670
 	weapon.SlotNumber 2
 	weapon.ammogive 8
 	weapon.ammotype "Clip"
-	Inventory.pickupmessage "You found a heavy assault rifle. It's got a bayonet, too!"
+	Inventory.pickupmessage "You found a heavy assault rifle."
 	States
 	{
 		Ready:
@@ -757,6 +771,7 @@ ACTOR HeavyAssaultRifle: DoomWeapon 20670
 //Taken and modified from Realm 667. Cheers!
 Actor BFG10000 : DoomWeapon 20673
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Radius 20
 	Height 20
 	Tag "BFG-10000"
@@ -765,7 +780,7 @@ Actor BFG10000 : DoomWeapon 20673
 	Weapon.AmmoGive 200
 	Weapon.AmmoType "Cell"
 	Weapon.Kickback 100
-	Inventory.Pickupmessage "You got the BFG-10000! Hell, yes!"
+	Inventory.Pickupmessage "You got the BFG-10000! That's pretty good."
 	Obituary "%o was blasted by %k's BFG-10000"
 	+Weapon.NoAutoFire
 	Decal BFGLightning
@@ -801,12 +816,6 @@ Actor BFG10000 : DoomWeapon 20673
 			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
 			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
 			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
-			BG2G H 1 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G H 1 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G I 1 A_SetAngle(angle-frandom(-8, 8))
-			BG2G I 1 A_SetAngle(angle-frandom(-8, 8))
-			BG2G J 1 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G J 1 A_SetPitch(pitch-frandom(-8, 8))
 			BG2G K 5 A_GunFlash
 			BG2G L 10 A_FireBullets(0, 0, 1, 0, "BFG10000Shot")
 			BG2G M 10 A_SetAngle(angle-frandom(-8, 8))
@@ -825,6 +834,7 @@ Actor BFG10000 : DoomWeapon 20673
 //Taken and modified from Realm 667. Thanks!
 ACTOR SuperMinigun: DoomWeapon 20675
 {
+	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 4
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "Clip"
@@ -864,6 +874,7 @@ ACTOR SuperMinigun: DoomWeapon 20675
 //Taken and modified from Realm 667. Appreciated!
 Actor LightningGun : DoomWeapon 20674
 {
+	Inventory.PickupSound "misc/i_pkup"
 	tag "Lightning Gun"
 	Radius 20
 	Height 16
