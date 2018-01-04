@@ -1,6 +1,6 @@
 ACTOR _SpiderMastermind: SpiderMastermind replaces SpiderMastermind
 {
-	DropItem "SuperMinigun"
+	//DropItem "SuperMinigun"
 	AttackSound "weapons/chngun"
 	States{
 		Missile:
@@ -15,7 +15,7 @@ ACTOR _SpiderMastermind: SpiderMastermind replaces SpiderMastermind
 
 ACTOR _Cyberdemon: Cyberdemon replaces Cyberdemon
 {
-	DropItem "BFG10000"
+	//DropItem "BFG10000"
 }
 
 ACTOR _LostSoul: LostSoul replaces LostSoul
@@ -129,7 +129,7 @@ ACTOR _Archvile replaces Archvile
 	}
 }
 
-//ACTOR _Demon: Demon replaces Demon // It looks REALLY bad.
+//ACTOR _Demon: Demon replaces Demon // My gibbing animation looks REALLY bad.
 //{
 //	States{
 //		XDeath:
@@ -143,59 +143,59 @@ ACTOR _Archvile replaces Archvile
 //	}
 //}
 
-ACTOR Cacobus: _Cacodemon 20676
-{
-	bloodcolor "orange"
-	Health 600
-	Speed 10
-	DropItem "LightningGun"
-	Obituary "%o was zapped by a cacobus"
-	HitObituary "%o was swallow whole by a cacobus."
-	States{
-		Missile:
-			CBUS B 5 A_FaceTarget
-			CBUS C 5 A_FaceTarget
-			TNT1 A 0 A_jump(64, "Small1")
-			TNT1 A 0 A_jump(64, "Small2")
-			TNT1 A 0 A_jump(64, "Large1")
-			CBUS D 5 BRIGHT A_CustomComboAttack("LightningBall2", 32, 11 * random(1, 6))
-			Goto See
-		Large1:
-			CBUS D 5 BRIGHT A_CustomComboAttack("LightningBall1", 32, 11 * random(1, 6))
-			Goto See
-		Small1:
-			CBUS D 5 BRIGHT A_CustomComboAttack("SmallLightningBall1", 32, 10 * random(1, 6))
-			Goto See
-		Small2:
-			CBUS D 5 BRIGHT A_CustomComboAttack("SmallLightningBall2", 32, 10 * random(1, 6))
-			Goto See
-		Spawn:
-			CBUS A 10 A_Look
-			Loop
-		See:
-			CBUS A 3 A_Chase
-			Loop
-		Pain:
-			CBUS E 3
-			CBUS E 3 A_Pain
-			CBUS F 6
-			Goto See
-		Death:
-			CBUS G 8
-			CBUS H 8 A_Scream
-			CBUS I 8
-			CBUS J 8
-			CBUS K 8 A_NoBlocking
-			CBUS L -1 A_SetFloorClip
-			Stop
-		Raise:
-			CBUS L 8 A_UnSetFloorClip
-			CBUS KJIHG 8
-			Goto See
-	}
-}
+//ACTOR Cacobus: _Cacodemon 20676
+//{
+//	bloodcolor "orange"
+//	Health 600
+//	Speed 10
+//	DropItem "LightningGun"
+//	Obituary "%o was zapped by a cacobus"
+//	HitObituary "%o was swallowed whole by a cacobus."
+//	States{
+//		Missile:
+//			CBUS B 5 A_FaceTarget
+//			CBUS C 5 A_FaceTarget
+//			TNT1 A 0 A_jump(64, "Small1")
+//			TNT1 A 0 A_jump(64, "Small2")
+//			TNT1 A 0 A_jump(64, "Large1")
+//			CBUS D 5 BRIGHT A_CustomComboAttack("LightningBall2", 32, 11 * random(1, 6))
+//			Goto See
+//		Large1:
+//			CBUS D 5 BRIGHT A_CustomComboAttack("LightningBall1", 32, 11 * random(1, 6))
+//			Goto See
+//		Small1:
+//			CBUS D 5 BRIGHT A_CustomComboAttack("SmallLightningBall1", 32, 10 * random(1, 6))
+//			Goto See
+//		Small2:
+//			CBUS D 5 BRIGHT A_CustomComboAttack("SmallLightningBall2", 32, 10 * random(1, 6))
+//			Goto See
+//		Spawn:
+//			CBUS A 10 A_Look
+//			Loop
+//		See:
+//			CBUS A 3 A_Chase
+//			Loop
+//		Pain:
+//			CBUS E 3
+//			CBUS E 3 A_Pain
+//			CBUS F 6
+//			Goto See
+//		Death:
+//			CBUS G 8
+//			CBUS H 8 A_Scream
+//			CBUS I 8
+//			CBUS J 8
+//			CBUS K 8 A_NoBlocking
+//			CBUS L -1 A_SetFloorClip
+//			Stop
+//		Raise:
+//			CBUS L 8 A_UnSetFloorClip
+//			CBUS KJIHG 8
+//			Goto See
+//	}
+//}
 
-ACTOR _ZombieMan: ZombieMan replaces ZombieMan
+ACTOR PistolGuy: ZombieMan replaces ZombieMan
 {
 	Health 45
 	decal "BulletChip"
@@ -284,63 +284,63 @@ ACTOR LightAssaultRifleGuy 20664
 	}
 }
 
-ACTOR HeavyAssaultRifleGuy 20671
-{
-	Health 45
-	Radius 20
-	Height 56
-	Speed 8
-	PainChance 200
-	Monster
-	+FLOORCLIP
-	SeeSound "grunt/sight"
-	AttackSound "weapons/chngun"
-	PainSound "grunt/pain"
-	DeathSound "grunt/death"
-	ActiveSound "grunt/active"
-	Obituary "%o was overwhelmed by a heavy assault rifle guy."
-	DropItem "HeavyAssaultRifle"
-	decal BulletChip
-	States
-	{
-	Spawn:
-		HRPS AB 10 A_Look
-		Loop
-	See:
-		HRPS AABBCCDD 4 A_Chase
-		Loop
-	Missile:
-		HRPS E random(7, 8) A_FaceTarget
-		HRPS E 0 A_PlaySound ("grunt/attack")
-		HRPS E 0 A_CustomMissile("BulletCasing",4,-45+random(0,8))
-		HRPS F 6 BRIGHT A_CustomBulletAttack(6, 6, 1, 4, "BulletPuff", 0, CBAF_AIMFACING)
-		HRPS E 6
-		HRPS E 0 A_CPosRefire
-		Goto Missile+1
-	Pain:
-		HRPS G 3
-		HRPS G 3 A_Pain
-		Goto See
-	Death:
-		HRPS H 5
-		HRPS I 5 A_Scream
-		HRPS J 5 A_NoBlocking
-		HRPS K 5
-		HRPS L -1
-		Stop
-	XDeath:
-		HRPS M 5
-		HRPS N 5 A_XScream
-		HRPS O 5 A_NoBlocking
-		HRPS PQRST 5
-		HRPS U -1
-		Stop
-	Raise:
-		HRPS K 5
-		HRPS JIH 5
-		Goto See
-	}
-}
+//ACTOR HeavyAssaultRifleGuy 20671
+//{
+//	Health 45
+//	Radius 20
+//	Height 56
+//	Speed 8
+//	PainChance 200
+//	Monster
+//	+FLOORCLIP
+//	SeeSound "grunt/sight"
+//	AttackSound "weapons/chngun"
+//	PainSound "grunt/pain"
+//	DeathSound "grunt/death"
+//	ActiveSound "grunt/active"
+//	Obituary "%o was overwhelmed by a heavy assault rifle guy."
+//	DropItem "HeavyAssaultRifle"
+//	decal BulletChip
+//	States
+//	{
+//	Spawn:
+//		HRPS AB 10 A_Look
+//		Loop
+//	See:
+//		HRPS AABBCCDD 4 A_Chase
+//		Loop
+//	Missile:
+//		HRPS E random(7, 8) A_FaceTarget
+//		HRPS E 0 A_PlaySound ("grunt/attack")
+//		HRPS E 0 A_CustomMissile("BulletCasing",4,-45+random(0,8))
+//		HRPS F 6 BRIGHT A_CustomBulletAttack(6, 6, 1, 4, "BulletPuff", 0, CBAF_AIMFACING)
+//		HRPS E 6
+//		HRPS E 0 A_CPosRefire
+//		Goto Missile+1
+//	Pain:
+//		HRPS G 3
+//		HRPS G 3 A_Pain
+//		Goto See
+//	Death:
+//		HRPS H 5
+//		HRPS I 5 A_Scream
+//		HRPS J 5 A_NoBlocking
+//		HRPS K 5
+//		HRPS L -1
+//		Stop
+//	XDeath:
+//		HRPS M 5
+//		HRPS N 5 A_XScream
+//		HRPS O 5 A_NoBlocking
+//		HRPS PQRST 5
+//		HRPS U -1
+//		Stop
+//	Raise:
+//		HRPS K 5
+//		HRPS JIH 5
+//		Goto See
+//	}
+//}
 
 ACTOR RevolverGuy 20668
 {

@@ -290,7 +290,7 @@ ACTOR _Chainsaw: Chainsaw replaces Chainsaw
 	}
 }
 
-ACTOR Minigun: Chaingun replaces Chaingun
+ACTOR Minigun: Chaingun replaces Chaingun // need configurable spin up overhaul thing
 {
 	Inventory.PickupSound "misc/i_pkup"
 	Weapon.SlotNumber 4
@@ -719,196 +719,196 @@ ACTOR CombatShotgun: Shotgun replaces Shotgun
 	}
 }
 
-ACTOR HeavyAssaultRifle: DoomWeapon 20670
-{
-	Inventory.PickupSound "misc/i_pkup"
-	attacksound "weapons/pistol"
-	Obituary "%o was pierced by %k's heavy assault rifle." // Pierced applies to the bayonet, too. Maybe I should make the bayonet a sister weapon? Research needed.
-	decal BulletChip
-	weapon.ammouse 1
-	Tag "Heavy Assault Rifle"
-	weapon.SlotNumber 2
-	weapon.ammogive 8
-	weapon.ammotype "Clip"
-	Inventory.pickupmessage "You found a heavy assault rifle."
-	States
-	{
-		Ready:
-			HASG A 1 A_WeaponReady
-			Loop
-		Deselect:
-			HASG A 1 A_Lower
-			Loop
-		Select:
-			HASG A 1 A_Raise
-			Loop
-		Flash:
-			HASF A 3 Bright A_Light1
-			HASF B 3 Bright A_Light2
-			Goto LightDone
-		Fire:
-			HASG A 0 A_FireBullets (1.25, 1.25, -1, 9, "BulletPuff")
-			HASG A 0 A_SetPitch(pitch-frandom(0.5, 1.5))
-			HASG D 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
-			HASG B 6 A_GunFlash
-			HASG A 6
-			HASG A 0 A_ReFire
-			Goto Ready
-		AltFire:
-			BAYO A 3
-			BAYO B 4
-			BAYO C 5 A_CustomPunch(2, 0)
-			BAYO B 4
-			BAYO A 3
-			HASG A 0 A_ReFire
-			Goto Ready
-		Spawn:
-			HDAS A -1
-			Stop
-	}
-}
-
-//Taken and modified from Realm 667. Cheers!
-Actor BFG10000 : DoomWeapon 20673
-{
-	Inventory.PickupSound "misc/i_pkup"
-	Radius 20
-	Height 20
-	Tag "BFG-10000"
-	Weapon.SlotNumber 7
-	Weapon.AmmoUse 100
-	Weapon.AmmoGive 200
-	Weapon.AmmoType "Cell"
-	Weapon.Kickback 100
-	Inventory.Pickupmessage "You got the BFG-10000! That's pretty good."
-	Obituary "%o was blasted by %k's BFG-10000"
-	+Weapon.NoAutoFire
-	Decal BFGLightning
-	States
-	{
-		Spawn:
-			BFG2 A -1
-			Stop
-		Ready:
-			BG2G A 0 A_PlaySound ("Weapons/BFG10KIdle")
-			BG2G A 1 A_WeaponReady
-			BG2G A 1 A_WeaponReady
-			BG2G A 1 A_WeaponReady
-			BG2G B 1 A_WeaponReady
-			BG2G B 1 A_WeaponReady
-			BG2G B 1 A_WeaponReady
-			BG2G C 1 A_WeaponReady
-			BG2G C 1 A_WeaponReady
-			BG2G C 1 A_WeaponReady
-			BG2G D 1 A_WeaponReady
-			BG2G D 1 A_WeaponReady
-			BG2G D 1 A_WeaponReady
-			Loop
-		Deselect:
-			BG2G E 1 A_Lower
-			Loop
-		Select:
-			BG2G E 1 A_Raise
-			Loop
-		Fire:
-			BG2G E 20 A_PlaySound("Weapons/BFG10KF")
-			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
-			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
-			BG2G K 5 A_GunFlash
-			BG2G L 10 A_FireBullets(0, 0, 1, 0, "BFG10000Shot")
-			BG2G M 10 A_SetAngle(angle-frandom(-8, 8))
-			BG2G N 5 A_SetPitch(pitch-frandom(-8, 8))
-			BG2G O 15 A_PlaySound("Weapons/BFG10KCool")
-			BG2G O 20 A_FireCustomMissile("SpentCellPack",45-random(0,8),false,0,4)
-			BG2G N 0 A_ReFire
-			Goto Ready
-		Flash:
-			TNT1 A 2 Bright A_Light1
-			TNT1 A 3 Bright
-			Goto LightDone
-	}
-}
-
-//Taken and modified from Realm 667. Thanks!
-ACTOR SuperMinigun: DoomWeapon 20675
-{
-	Inventory.PickupSound "misc/i_pkup"
-	Weapon.SlotNumber 4
-	Weapon.AmmoUse 1
-	Weapon.AmmoType "Clip"
-	Weapon.AmmoGive 40
-	Tag "Super Minigun"
-	decal BulletChip
-	Inventory.PickupMessage "You got a super minigun!"
-	Obituary "%o was shredded by %k's super minigun."
-	States{
-		Fire:
-			MNGG A 0 A_PlaySound("weapons/minigunfire", CHAN_WEAPON)
-			MNGG A 0 A_GunFlash
-			MNGG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
-			MNGG A 1 A_FireBullets(20, 20, -1, 4, "BulletPuff")
-			MNGG B 1
-			MNGG B 0 A_ReFire
-			Goto Ready
-		Flash:
-			MNGF A 1 Bright A_Light1
-			MNGF B 1 Bright A_Light2
-			Goto LightDone
-		Ready:
-			MNGG A 1 A_WeaponReady
-			Loop
-		Select:
-			MNGG A 1 A_Raise
-			Loop
-		Deselect:
-			MNGG A 1 A_Lower
-			Loop
-		Spawn:
-			MNGN A -1
-			Stop
-	}
-}
-
-//Taken and modified from Realm 667. Appreciated!
-Actor LightningGun : DoomWeapon 20674
-{
-	Inventory.PickupSound "misc/i_pkup"
-	tag "Lightning Gun"
-	Radius 20
-	Height 16
-	Weapon.AmmoUse 2
-	Weapon.SlotNumber 6
-	Weapon.AmmoGive 40
-	Weapon.AmmoType "Cell"
-	Weapon.Kickback 200
-	Inventory.PickupMessage "You got the lightning gun! Go 'n' fry something!"
-	States
-	{
-		Spawn:
-			LGUN A -1
-			Stop
-		Ready:
-			LIGG A 1 A_WeaponReady
-			Loop
-		Deselect:
-			LIGG A 1 A_Lower
-			Loop
-		Select: 
-			LIGG A 1 A_Raise
-			Loop
-		Fire:
-			LIGG B 0 A_PlaySound("world/spark", CHAN_WEAPON)
-			LIGG B 0 A_RailAttack(20, 0, true, "none", "55 b0 ff", RGF_FULLBRIGHT | RGF_SILENT | RGF_NOPIERCING, 1024, "BulletPuff", 2, 2, 4096, 20, 1, 1, "none", 0, 90, 1)
-			LIGG B 4
-			LIGG B 0 A_ReFire
-			Goto Ready
-		Flash: 
-			LIGF A 1 Bright A_Light1
-			LIGF B 1 Bright
-			LIGF C 1 Bright A_Light2
-			LIGF D 1 Bright A_Light2
-			Goto LightDone
-	}
-}
+//ACTOR HeavyAssaultRifle: DoomWeapon 20670
+//{
+//	Inventory.PickupSound "misc/i_pkup"
+//	attacksound "weapons/pistol"
+//	Obituary "%o was pierced by %k's heavy assault rifle." // Pierced applies to the bayonet, too. Maybe I should make the bayonet a sister weapon? Research needed.
+//	decal BulletChip
+//	weapon.ammouse 1
+//	Tag "Heavy Assault Rifle"
+//	weapon.SlotNumber 2
+//	weapon.ammogive 8
+//	weapon.ammotype "Clip"
+//	Inventory.pickupmessage "You found a heavy assault rifle."
+//	States
+//	{
+//		Ready:
+//			HASG A 1 A_WeaponReady
+//			Loop
+//		Deselect:
+//			HASG A 1 A_Lower
+//			Loop
+//		Select:
+//			HASG A 1 A_Raise
+//			Loop
+//		Flash:
+//			HASF A 3 Bright A_Light1
+//			HASF B 3 Bright A_Light2
+//			Goto LightDone
+//		Fire:
+//			HASG A 0 A_FireBullets (1.25, 1.25, -1, 9, "BulletPuff")
+//			HASG A 0 A_SetPitch(pitch-frandom(0.5, 1.5))
+//			HASG D 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+//			HASG B 6 A_GunFlash
+//			HASG A 6
+//			HASG A 0 A_ReFire
+//			Goto Ready
+//		AltFire:
+//			BAYO A 3
+//			BAYO B 4
+//			BAYO C 5 A_CustomPunch(2, 0)
+//			BAYO B 4
+//			BAYO A 3
+//			HASG A 0 A_ReFire
+//			Goto Ready
+//		Spawn:
+//			HDAS A -1
+//			Stop
+//	}
+//}
+//
+////Taken and modified from Realm 667. Cheers!
+//Actor BFG10000 : DoomWeapon 20673
+//{
+//	Inventory.PickupSound "misc/i_pkup"
+//	Radius 20
+//	Height 20
+//	Tag "BFG-10000"
+//	Weapon.SlotNumber 7
+//	Weapon.AmmoUse 100
+//	Weapon.AmmoGive 200
+//	Weapon.AmmoType "Cell"
+//	Weapon.Kickback 100
+//	Inventory.Pickupmessage "You got the BFG-10000! That's pretty good."
+//	Obituary "%o was blasted by %k's BFG-10000"
+//	+Weapon.NoAutoFire
+//	Decal BFGLightning
+//	States
+//	{
+//		Spawn:
+//			BFG2 A -1
+//			Stop
+//		Ready:
+//			BG2G A 0 A_PlaySound ("Weapons/BFG10KIdle")
+//			BG2G A 1 A_WeaponReady
+//			BG2G A 1 A_WeaponReady
+//			BG2G A 1 A_WeaponReady
+//			BG2G B 1 A_WeaponReady
+//			BG2G B 1 A_WeaponReady
+//			BG2G B 1 A_WeaponReady
+//			BG2G C 1 A_WeaponReady
+//			BG2G C 1 A_WeaponReady
+//			BG2G C 1 A_WeaponReady
+//			BG2G D 1 A_WeaponReady
+//			BG2G D 1 A_WeaponReady
+//			BG2G D 1 A_WeaponReady
+//			Loop
+//		Deselect:
+//			BG2G E 1 A_Lower
+//			Loop
+//		Select:
+//			BG2G E 1 A_Raise
+//			Loop
+//		Fire:
+//			BG2G E 20 A_PlaySound("Weapons/BFG10KF")
+//			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
+//			BG2G F 4 A_SetPitch(pitch-frandom(-8, 8))
+//			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
+//			BG2G G 1 A_SetAngle(angle-frandom(-8, 8))
+//			BG2G K 5 A_GunFlash
+//			BG2G L 10 A_FireBullets(0, 0, 1, 0, "BFG10000Shot")
+//			BG2G M 10 A_SetAngle(angle-frandom(-8, 8))
+//			BG2G N 5 A_SetPitch(pitch-frandom(-8, 8))
+//			BG2G O 15 A_PlaySound("Weapons/BFG10KCool")
+//			BG2G O 20 A_FireCustomMissile("SpentCellPack",45-random(0,8),false,0,4)
+//			BG2G N 0 A_ReFire
+//			Goto Ready
+//		Flash:
+//			TNT1 A 2 Bright A_Light1
+//			TNT1 A 3 Bright
+//			Goto LightDone
+//	}
+//}
+//
+////Taken and modified from Realm 667. Thanks!
+//ACTOR SuperMinigun: DoomWeapon 20675
+//{
+//	Inventory.PickupSound "misc/i_pkup"
+//	Weapon.SlotNumber 4
+//	Weapon.AmmoUse 1
+//	Weapon.AmmoType "Clip"
+//	Weapon.AmmoGive 40
+//	Tag "Super Minigun"
+//	decal BulletChip
+//	Inventory.PickupMessage "You got a super minigun!"
+//	Obituary "%o was shredded by %k's super minigun."
+//	States{
+//		Fire:
+//			MNGG A 0 A_PlaySound("weapons/minigunfire", CHAN_WEAPON)
+//			MNGG A 0 A_GunFlash
+//			MNGG A 0 A_FireCustomMissile("BulletCasing",-45+random(0,8),false,0,4)
+//			MNGG A 1 A_FireBullets(20, 20, -1, 4, "BulletPuff")
+//			MNGG B 1
+//			MNGG B 0 A_ReFire
+//			Goto Ready
+//		Flash:
+//			MNGF A 1 Bright A_Light1
+//			MNGF B 1 Bright A_Light2
+//			Goto LightDone
+//		Ready:
+//			MNGG A 1 A_WeaponReady
+//			Loop
+//		Select:
+//			MNGG A 1 A_Raise
+//			Loop
+//		Deselect:
+//			MNGG A 1 A_Lower
+//			Loop
+//		Spawn:
+//			MNGN A -1
+//			Stop
+//	}
+//}
+//
+////Taken and modified from Realm 667. Appreciated!
+//Actor LightningGun : DoomWeapon 20674
+//{
+//	Inventory.PickupSound "misc/i_pkup"
+//	tag "Lightning Gun"
+//	Radius 20
+//	Height 16
+//	Weapon.AmmoUse 2
+//	Weapon.SlotNumber 6
+//	Weapon.AmmoGive 40
+//	Weapon.AmmoType "Cell"
+//	Weapon.Kickback 200
+//	Inventory.PickupMessage "You got the lightning gun! Go 'n' fry something!"
+//	States
+//	{
+//		Spawn:
+//			LGUN A -1
+//			Stop
+//		Ready:
+//			LIGG A 1 A_WeaponReady
+//			Loop
+//		Deselect:
+//			LIGG A 1 A_Lower
+//			Loop
+//		Select: 
+//			LIGG A 1 A_Raise
+//			Loop
+//		Fire:
+//			LIGG B 0 A_PlaySound("world/spark", CHAN_WEAPON)
+//			LIGG B 0 A_RailAttack(20, 0, true, "none", "55 b0 ff", RGF_FULLBRIGHT | RGF_SILENT | RGF_NOPIERCING, 1024, "BulletPuff", 2, 2, 4096, 20, 1, 1, "none", 0, 90, 1)
+//			LIGG B 4
+//			LIGG B 0 A_ReFire
+//			Goto Ready
+//		Flash: 
+//			LIGF A 1 Bright A_Light1
+//			LIGF B 1 Bright
+//			LIGF C 1 Bright A_Light2
+//			LIGF D 1 Bright A_Light2
+//			Goto LightDone
+//	}
+//}

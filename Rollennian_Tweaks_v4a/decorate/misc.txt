@@ -52,8 +52,8 @@ ACTOR DoomPlayerPain: DoomPlayer
 
 ACTOR ZombiemanRandomiser: RandomSpawner replaces Zombieman
 {
-	DropItem "_ZombieMan", 255, 80
-	DropItem "LightAssaultRifleGuy", 255, 15
+	DropItem "PistolGuy", 255, 80
+	//DropItem "LightAssaultRifleGuy", 255, 15
 	DropItem "RevolverGuy", 255, 5
 }
 
@@ -61,7 +61,7 @@ ACTOR ShotgunGuyRandomiser: RandomSpawner replaces ShotgunGuy
 {
 	DropItem "_ShotgunGuy", 255, 80
 	DropItem "RailgunGuy", 255, 15
-	DropItem "HeavyAssaultRifleGuy", 255, 5
+	//DropItem "HeavyAssaultRifleGuy", 255, 5
 }
 
 ACTOR NaziRandomiser: RandomSpawner replaces WolfensteinSS
@@ -73,5 +73,5 @@ ACTOR NaziRandomiser: RandomSpawner replaces WolfensteinSS
 ACTOR CacodemonRandomiser: RandomSpawner replaces Cacodemon 20677
 {
 	DropItem "_Cacodemon", 255, 95
-	DropItem "Cacobus", 255, 5
+	//DropItem "Cacobus", 255, 5
 }

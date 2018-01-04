@@ -11,7 +11,7 @@ ACTOR ShotgunShell
 	States
 	{
 		Spawn:
-			CAS2 HGFEDCBA random(3, 6) A_FadeOut(0.1)
+			CAS2 HGFEDCBA random(3, 6) A_FadeOut(0.025)
 			Loop
 		Death:
 			TNT1 A 0 A_jump(128, "A")
@@ -19,16 +19,16 @@ ACTOR ShotgunShell
 			TNT1 A 0 A_jump(128, "E")
 			TNT1 A 0 A_jump(128, "G")
 		A:
-			CAS2 A 1 A_FadeOut(0.1)
+			CAS2 A 1 A_FadeOut(0.025)
 			Loop
 		C:
-			CAS2 C 1 A_FadeOut(0.1)
+			CAS2 C 1 A_FadeOut(0.025)
 			Loop
 		E:
-			CAS2 E 1 A_FadeOut(0.1)
+			CAS2 E 1 A_FadeOut(0.025)
 			Loop
 		G:
-			CAS2 G 1 A_FadeOut(0.1)
+			CAS2 G 1 A_FadeOut(0.025)
 			Loop
 	}
 }
@@ -45,7 +45,7 @@ ACTOR SpentPlasmaCell
 	States
 	{
 		Spawn:
-			CAS3 HGFEDCBA random(3, 6) A_FadeOut(0.1)
+			CAS3 HGFEDCBA random(3, 6) A_FadeOut(0.025)
 			Loop
 		Death:
 			TNT1 A 0 A_jump(128, "A")
@@ -53,16 +53,16 @@ ACTOR SpentPlasmaCell
 			TNT1 A 0 A_jump(128, "E")
 			TNT1 A 0 A_jump(128, "G")
 		A:
-			CAS3 A 1 A_FadeOut(0.1)
+			CAS3 A 1 A_FadeOut(0.025)
 			Loop
 		C:
-			CAS3 C 1 A_FadeOut(0.1)
+			CAS3 C 1 A_FadeOut(0.025)
 			Loop
 		E:
-			CAS3 E 1 A_FadeOut(0.1)
+			CAS3 E 1 A_FadeOut(0.025)
 			Loop
 		G:
-			CAS3 G 1 A_FadeOut(0.1)
+			CAS3 G 1 A_FadeOut(0.025)
 			Loop
 	}
 }
@@ -79,7 +79,7 @@ ACTOR SpentCellPack
 	States
 	{
 		Spawn:
-			CAS4 HGFEDCBA random(3, 6) A_FadeOut(0.1)
+			CAS4 HGFEDCBA random(3, 6) A_FadeOut(0.025)
 			Loop
 		Death:
 			TNT1 A 0 A_jump(128, "A")
@@ -87,16 +87,16 @@ ACTOR SpentCellPack
 			TNT1 A 0 A_jump(128, "E")
 			TNT1 A 0 A_jump(128, "G")
 		A:
-			CAS4 A 1 A_FadeOut(0.1)
+			CAS4 A 1 A_FadeOut(0.025)
 			Loop
 		C:
-			CAS4 C 1 A_FadeOut(0.1)
+			CAS4 C 1 A_FadeOut(0.025)
 			Loop
 		E:
-			CAS4 E 1 A_FadeOut(0.1)
+			CAS4 E 1 A_FadeOut(0.025)
 			Loop
 		G:
-			CAS4 G 1 A_FadeOut(0.1)
+			CAS4 G 1 A_FadeOut(0.025)
 			Loop
 	}
 }
@@ -114,7 +114,7 @@ ACTOR BulletCasing
 	States
 	{
 		Spawn:
-			CASE HGFEDCBA random(3, 6) A_FadeOut(0.1)
+			CASE HGFEDCBA random(3, 6) A_FadeOut(0.025)
 			Loop
 		Death:
 			TNT1 A 0 A_jump(128, "A")
@@ -122,16 +122,16 @@ ACTOR BulletCasing
 			TNT1 A 0 A_jump(128, "E")
 			TNT1 A 0 A_jump(128, "G")
 		A:
-			CASE A 1 A_FadeOut(0.1)
+			CASE A 1 A_FadeOut(0.025)
 			Loop
 		C:
-			CASE C 1 A_FadeOut(0.1)
+			CASE C 1 A_FadeOut(0.025)
 			Loop
 		E:
-			CASE E 1 A_FadeOut(0.1)
+			CASE E 1 A_FadeOut(0.025)
 			Loop
 		G:
-			CASE G 1 A_FadeOut(0.1)
+			CASE G 1 A_FadeOut(0.025)
 			Loop
 	}
 }
